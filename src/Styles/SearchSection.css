@@ -8,6 +8,7 @@
     align-items: center;
     width: 1280px;
     margin: 30px auto 0 auto;
+    box-sizing: border-box;
 }
 
 .searchbar {

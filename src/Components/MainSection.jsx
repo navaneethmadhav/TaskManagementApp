@@ -32,7 +32,11 @@ const MainSection = () => {
                     <h1>5</h1>
                 </div>
             </div>
-            <div className="dashboard-list-section"></div>
+            <div className="dashboard-list-section">
+                <div className="category-container">as</div>
+                <div className="category-container">asa</div>
+                <div className="category-container">dfdf</div>
+            </div>
         </div>
     )
 }
