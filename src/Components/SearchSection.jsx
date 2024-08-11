@@ -24,7 +24,7 @@ const SearchSection = () => {
                         <div class="searchbar-center">
                             <div class="searchbar-input-spacer"></div>
 
-                            <input type="text" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="Search Google" />
+                            <input type="text" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="Search..." />
                         </div>
                     </div>
                 </div>
