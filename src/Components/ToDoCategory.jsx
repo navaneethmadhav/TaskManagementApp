@@ -123,7 +123,7 @@ const ToDoCategory = () => {
         setCalendarModalOpen(false);
     };
 
-    const handleEditTask = (id) => {
+    const handleEditTask = async (id) => {
 
         try {
 
@@ -135,7 +135,15 @@ const ToDoCategory = () => {
                 endDate
             }
 
-            
+            const result = await axios.put(`${process.env.REACT_APP_SERVER_BASEURL}/update-task/${id}`, body);
+            // console.log(result);
+
+            if (result.data.statusCode === 200) {
+                setEditModalOpen(false);
+                toast.success(result.data.message, options);
+                window.location.reload();
+            }
+
 
         } catch (error) {
             console.log(error);
@@ -165,7 +173,9 @@ const ToDoCategory = () => {
                 </div>
             </div>
 
-            {taskData.map((task, i) => (
+            {taskData
+                .filter(task => task.task_status === "new")
+                .map((task, i) => (
                 <div className="list-item-container" key={i}>
                     <div className="list-item-card">
                         <div className="list-item-banner">
