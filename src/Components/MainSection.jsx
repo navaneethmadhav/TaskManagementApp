@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Dropdown } from 'antd';
+import { nanoid } from 'nanoid';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import '../Styles/MainSection.css'
 import expiredIcon from '../Assets/Icons/Expired.svg'
@@ -18,6 +22,13 @@ import { IoClose } from "react-icons/io5";
 
 const items = [
     {
+        label: "Choose Priority",
+        disabled: true,
+    },
+    {
+        type: 'divider',
+    },
+    {
         label: "Low",
         key: '0',
     },
@@ -29,10 +40,21 @@ const items = [
 
 const MainSection = () => {
 
+    const options = {
+        autoClose: 3000,
+        hideProgressBar: false,
+        position: "top-right",
+        pauseOnHover: false,
+    };
+
     const [isModalOpen, setModalOpen] = useState(false);
     const [calendarModalOpen, setCalendarModalOpen] = useState(false);
-    const [startDate, setStartDate] = useState(null);
+    const [todayDate, setTodayDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const [taskHeading, setTaskHeading] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
+    const [taskPriority, setTaskPriority] = useState("Low");
 
     const openModal = () => {
         setModalOpen(true);
@@ -42,30 +64,55 @@ const MainSection = () => {
         setModalOpen(false);
     };
 
-    const openCalendarModal = () => {
-
-    };
-
-    const closeCalendarModal = () => {
-        setCalendarModalOpen(false);
-    };
-
     const handleDeadlineClick = () => {
         setCalendarModalOpen(true);
         setIsCalendarOpen(true);
+        setTodayDate(new Date());
     };
 
     const handleDateChange = (date) => {
-        setStartDate(date);
+        // console.log(date.toLocaleDateString());
+
+        setEndDate(date.toLocaleDateString());
         setIsCalendarOpen(false);
         setCalendarModalOpen(false);
     };
 
     const handleMenuClick = (e) => {
         const selectedItem = items.find(item => item.key === e.key);
-        console.log(selectedItem.label);
-        
+        setTaskPriority(selectedItem.label);
     };
+
+    const handleAddTask = async () => {
+
+        if (!taskHeading.trim() || !taskPriority.trim() || !taskDescription.trim() || !endDate) {
+            toast.error("All fields are required", options);
+            return;
+        }
+
+        const id = nanoid(5)
+
+        const body = {
+            id,
+            taskHeading,
+            taskPriority,
+            taskDescription,
+            endDate,
+            status: "new"
+        }
+
+        // console.log(body);
+
+        const result = await axios.post(`${process.env.REACT_APP_SERVER_BASEURL}/tasks`, body);
+        // console.log(result);
+
+        if (result.data.statusCode === 200) {
+            setModalOpen(false);
+            toast.success(result.data.message, options);
+            window.location.reload();
+        }
+
+    }
 
     return (
         <div className='dashboard-body-container'>
@@ -114,10 +161,12 @@ const MainSection = () => {
                             </div>
                             <div className="modal-task-form">
                                 <div className="task-input-header">
-                                    <input type="text" />
+                                    <input type="text" placeholder='Heading' onChange={(e) => setTaskHeading(e.target.value)} />
                                     <Dropdown
                                         menu={{
                                             items,
+                                            selectable: true,
+                                            defaultSelectedKeys: ['0'],
                                             onClick: handleMenuClick
                                         }}
                                         trigger={['click']}
@@ -128,12 +177,12 @@ const MainSection = () => {
                                     </Dropdown>
                                 </div>
                                 <div className="task-content-wrapper">
-                                    <textarea name="" id=""></textarea>
+                                    <textarea name="" id="" placeholder='Description' onChange={(e) => setTaskDescription(e.target.value)}></textarea>
                                 </div>
                             </div>
                             <div className="modal-action-footer">
                                 <button className='action-btn' onClick={handleDeadlineClick}>Deadline</button>
-                                <button className="action-btn">Assigned to</button>
+                                <button className="action-btn" onClick={handleAddTask}>Assigned to</button>
 
                                 {calendarModalOpen && (
                                     <div className="calendar-modal">
@@ -141,9 +190,10 @@ const MainSection = () => {
                                         <div className="calendar-modal-content">
                                             {isCalendarOpen && (
                                                 <DatePicker
-                                                    selected={startDate}
+                                                    selected={endDate}
                                                     onChange={handleDateChange}
-                                                    onClickOutside={() => setIsCalendarOpen(false)}
+                                                    dateFormat="dd/MM/yyyy"
+                                                    // onClickOutside={() => setIsCalendarOpen(false)}
                                                     inline
                                                 />
                                             )}

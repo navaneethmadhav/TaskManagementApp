@@ -3,15 +3,22 @@
 .todo-parent-container {
     background-color: rgba(236, 237, 238, 1);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     box-sizing: border-box;
     border-radius: 10px;
     height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .todo-category-header {
     padding-bottom: 20px;
+    padding-top: 20px;
     border-bottom: 3px solid rgba(80, 48, 229, 1);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: rgba(236, 237, 238, 1);
 }
 
 .todo-header-wrapper {
@@ -54,7 +61,10 @@
     padding: 20px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    margin-top: 10px;
+    margin: 10px auto 0 auto;
+    width: 95%;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .list-item-banner {
@@ -65,6 +75,19 @@
 .list-item-badge {
     background-color: rgba(223, 168, 116, 0.2);
     color: rgba(213, 141, 73, 1);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    width: 40px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 5px;
+}
+
+.priority-item-badge {
+    background-color: rgba(216, 114, 125, 0.1);
+    color: rgba(216, 114, 125, 1);
     font-family: "Inter", sans-serif;
     font-size: 12px;
     font-weight: 500;
@@ -115,4 +138,67 @@
     font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-weight: 500;
+}
+
+.task-list-action {
+    position: absolute;
+    right: 1%;
+    top: 30px;
+    list-style-type: none;
+    margin: 0;
+    background-color: #fff;
+    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+    z-index: 1;
+    padding: 5px;
+    min-width: 70px;
+    text-align: left;
+    margin-top: 15px;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.4));
+    border-radius: 10px;
+}
+
+.task-list-action::before {
+    content: "";
+    position: absolute;
+    top: -14%;
+    left: 80%;
+    transform: translate(-90%, -25%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+}
+
+.task-list-option {
+    padding: 5px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.task-list-option:hover {
+    background-color: #F4F1F1;
+    border-radius: 5px;
+}
+
+.edit-modal {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.edit-modal,
+.edit-modal-overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.edit-modal-overlay {
+    background: rgba(49, 49, 49, 0.2);
 }
