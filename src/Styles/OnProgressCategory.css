@@ -7,12 +7,18 @@
     box-sizing: border-box;
     border-radius: 10px;
     height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .onprogress-category-header {
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 3px solid rgba(255, 165, 0, 1);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: rgba(236, 237, 238, 1);
 }
 
 .onprogress-header-wrapper {

@@ -11,6 +11,7 @@ import '../Styles/MainSection.css'
 import expiredIcon from '../Assets/Icons/Expired.svg'
 import activeIcon from '../Assets/Icons/activeTask.svg'
 import completedIcon from '../Assets/Icons/clock.svg'
+import successIcon from '../Assets/Icons/Tick Square.svg'
 import ToDoCategory from './ToDoCategory.jsx'
 import OnProgressCategory from './OnProgressCategory.jsx'
 import CompletedCategory from './CompletedCategory.jsx'
@@ -55,6 +56,7 @@ const MainSection = () => {
     const [taskHeading, setTaskHeading] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [taskPriority, setTaskPriority] = useState("Low");
+    const [successModalOpen, setSuccessModalOpen] = useState(false);
 
     const openModal = () => {
         setModalOpen(true);
@@ -83,6 +85,15 @@ const MainSection = () => {
         setTaskPriority(selectedItem.label);
     };
 
+    const openSuccessModal = () => {
+        setSuccessModalOpen(true);
+    };
+
+    // Function to close the modal
+    const closeSuccessModal = () => {
+        setSuccessModalOpen(false);
+    };
+
     const handleAddTask = async () => {
 
         if (!taskHeading.trim() || !taskPriority.trim() || !taskDescription.trim() || !endDate) {
@@ -109,6 +120,7 @@ const MainSection = () => {
         if (result.data.statusCode === 200) {
             setModalOpen(false);
             toast.success(result.data.message, options);
+            // openSuccessModal();
             window.location.reload();
         }
 
@@ -147,7 +159,7 @@ const MainSection = () => {
 
                 {isModalOpen && (
                     <div className="modal">
-                        <button className='close-button' onClick={closeModal}><IoClose /></button>
+                        {/* <button className='close-button' onClick={closeModal}><IoClose /></button> */}
                         <div onClick={closeModal} className="overlay"></div>
                         <div className="modal-content">
                             <div className="modal-header-container">
@@ -182,7 +194,6 @@ const MainSection = () => {
                             </div>
                             <div className="modal-action-footer">
                                 <button className='action-btn' onClick={handleDeadlineClick}>Deadline</button>
-                                <button className="action-btn" onClick={handleAddTask}>Assigned to</button>
 
                                 {calendarModalOpen && (
                                     <div className="calendar-modal">
@@ -198,6 +209,21 @@ const MainSection = () => {
                                                 />
                                             )}
 
+                                        </div>
+                                    </div>
+                                )}
+
+                                <button className="action-btn" onClick={handleAddTask}>Assigned to</button>
+
+                                {successModalOpen && (
+                                    <div className="success-modal">
+                                        <div onClick={closeSuccessModal} className="success-modal-overlay"></div>
+                                        <div className="success-modal-content">
+                                            <div className="success-icon-container">
+                                                <img src={successIcon} alt="" />
+                                            </div>
+                                            <div className='success-modal-text'><p>new task has been created successfully</p></div>
+                                            <button onClick={closeSuccessModal}>Back</button>
                                         </div>
                                     </div>
                                 )}

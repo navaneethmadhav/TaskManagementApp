@@ -41,12 +41,12 @@ const ToDoCategory = () => {
     const [taskData, setTaskData] = useState([]);
     const [newTaskCount, setNewTaskCount] = useState(0);
     const [showList, setShowList] = useState(false);
-    const sortListRef = useRef(null);
+    const actionListRef = useRef(null);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [taskHeading, setTaskHeading] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [taskStatus, setTaskStatus] = useState("");
+    const [taskStatus, setTaskStatus] = useState("new");
     const [calendarModalOpen, setCalendarModalOpen] = useState(false);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
@@ -61,12 +61,12 @@ const ToDoCategory = () => {
         setNewTaskCount(newTasks.length);
     }
 
-    const toggleSortList = (index) => {
+    const toggleActionList = (index) => {
         setShowList(showList === index ? null : index);
     };
 
     const handleClickOutside = (event) => {
-        if (sortListRef.current && !sortListRef.current.contains(event.target)) {
+        if (actionListRef.current && !actionListRef.current.contains(event.target)) {
             setShowList(false);
         }
     };
@@ -161,7 +161,7 @@ const ToDoCategory = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [sortListRef]);
+    }, [actionListRef]);
 
     return (
         <div className='todo-parent-container'>
@@ -185,10 +185,10 @@ const ToDoCategory = () => {
                                 <div className="priority-item-badge">{task.task_priority}</div>
                             )}
 
-                            <div className="list-item-option" onClick={() => toggleSortList(i)}><HiDotsHorizontal /></div>
+                            <div className="list-item-option" onClick={() => toggleActionList(i)}><HiDotsHorizontal /></div>
 
                             {showList === i && (
-                                <ul ref={sortListRef} className="task-list-action">
+                                <ul ref={actionListRef} className="task-list-action">
                                     <li className='task-list-option' style={{ cursor: 'pointer' }} onClick={() => openEditModal(task.task_id)}>Edit</li>
                                     <li className='task-list-option' style={{ cursor: 'pointer' }} onClick={() => handleDelete(task.task_id)} >Delete</li>
                                 </ul>

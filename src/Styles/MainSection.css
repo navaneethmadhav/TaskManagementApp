@@ -154,6 +154,45 @@
     background: rgba(49, 49, 49, 0.8);
 }
 
+.success-modal {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.success-modal,
+.success-modal-overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.success-modal-overlay {
+    background: rgba(49, 49, 49, 0.8);
+}
+
+.success-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 80%;
+    min-width: 315px;
+    box-sizing: border-box;
+    /* height: 80%; */
+}
+
 .close-button {
     position: absolute;
     top: 1rem;
@@ -249,4 +288,27 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+.success-modal-text {
+    width: 300px;
+}
+
+.success-modal-text p {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.success-modal-content button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
 }
