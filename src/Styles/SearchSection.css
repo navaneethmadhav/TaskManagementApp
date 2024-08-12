@@ -114,3 +114,56 @@
 .filter-wrapper select:focus {
     outline: none;
 }
+
+@media(max-width: 1450px) {
+    .action-container {
+        width: 1280px;
+    }
+}
+
+@media(max-width: 1400px) {
+    .action-container {
+        width: 1100px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .action-container {
+        width: 1000px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .action-container {
+        width: 900px;
+    }
+}
+
+@media(max-width: 950px) {
+    .action-container {
+        width: 768px;
+    }
+}
+
+@media(max-width: 800px) {
+    .action-container {
+        width: 600px;
+    }
+}
+
+@media(max-width: 640px) {
+    .action-container {
+        width: 90%;
+    }
+}
+
+@media(max-width: 500px) {
+    .action-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .searchbar {
+        max-width: 100%;
+    }
+}

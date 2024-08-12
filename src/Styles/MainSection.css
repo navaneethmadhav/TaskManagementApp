@@ -312,3 +312,89 @@
     border-radius: 10px;
     border: none;
 }
+
+@media(max-width: 1450px) {
+    .dashboard-body-container {
+        width: 1280px;
+    }
+}
+
+@media(max-width: 1400px) {
+    .dashboard-body-container {
+        width: 1100px;
+    }
+
+    .sidebar-section-block {
+        width: 200px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .dashboard-body-container {
+        width: 1000px;
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .task-btn-wrapper {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .sidebar-section-block {
+        width: 30%;
+    }
+}
+
+@media(max-width: 1024px) {
+    .dashboard-body-container {
+        width: 900px;
+    }
+}
+
+@media(max-width: 950px) {
+    .dashboard-body-container {
+        width: 768px;
+    }
+}
+
+@media(max-width: 900px) {
+    .dashboard-list-section {
+        display: none;
+    }
+}
+
+@media(max-width: 800px) {
+    .dashboard-body-container {
+        width: 600px;
+    }
+}
+
+@media(max-width: 640px) {
+    .dashboard-body-container {
+        width: 90%;
+    }
+
+    .dashboard-sidebar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-section-block {
+        width: 100%;
+    }
+}
+
+@media(max-width: 500px) {
+}
+
+@media(min-width: 900px) {
+    .category-slider {
+        display: none;
+    }
+}

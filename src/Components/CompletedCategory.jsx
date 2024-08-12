@@ -46,7 +46,7 @@ const CompletedCategory = () => {
 
     const getTaskData = async () => {
         const result = await axios.get(`${process.env.REACT_APP_SERVER_BASEURL}/get-tasks`);
-        console.log(result);
+        // console.log(result);
 
         setTaskData(result.data.tasks);
 
@@ -95,7 +95,7 @@ const CompletedCategory = () => {
                 endDate
             }
 
-            console.log(body);
+            // console.log(body);
             
 
             const result = await axios.put(`${process.env.REACT_APP_SERVER_BASEURL}/update-task/${id}`, body);
@@ -109,7 +109,7 @@ const CompletedCategory = () => {
 
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
 
     }

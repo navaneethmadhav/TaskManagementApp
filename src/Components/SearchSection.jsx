@@ -24,7 +24,7 @@ const SearchSection = () => {
                         <div class="searchbar-center">
                             <div class="searchbar-input-spacer"></div>
 
-                            <input type="text" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="Search..." />
+                            <input type="text" class="searchbar-input" placeholder="Search..." />
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@ const SearchSection = () => {
 
             <div className="filter-wrapper">
                 <select>
-                    <option value="1">Option 1</option>
+                    <option value="1" disabled selected>Filter</option>
                     <option value="2">Option 2</option>
                     <option value="3">Option 3</option>
                 </select>

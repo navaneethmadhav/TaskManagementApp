@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Dropdown } from 'antd';
@@ -6,6 +6,10 @@ import { nanoid } from 'nanoid';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+
 
 import '../Styles/MainSection.css'
 import expiredIcon from '../Assets/Icons/Expired.svg'
@@ -57,6 +61,10 @@ const MainSection = () => {
     const [taskDescription, setTaskDescription] = useState("");
     const [taskPriority, setTaskPriority] = useState("Low");
     const [successModalOpen, setSuccessModalOpen] = useState(false);
+    const [taskData, setTaskData] = useState([]);
+    const [completedTaskCount, setCompletedTaskCount] = useState(0);
+    const [activeTaskData, setActiveTaskData] = useState(0);
+    const [expiredTaskData, setExpiredTaskData] = useState(0);
 
     const openModal = () => {
         setModalOpen(true);
@@ -126,6 +134,35 @@ const MainSection = () => {
 
     }
 
+    const getTaskData = async () => {
+        const result = await axios.get(`${process.env.REACT_APP_SERVER_BASEURL}/get-tasks`);
+        // console.log(result);
+
+        setTaskData(result.data.tasks);
+
+        const newTasks = result.data.tasks.filter(task => task.task_status === "Completed");
+        setCompletedTaskCount(newTasks.length);
+
+        const activeTasks = result.data.tasks.filter(
+            task => task.task_status === "new" || task.task_status === "On Progress"
+        );
+        setActiveTaskData(activeTasks.length);
+
+        const today = new Date();
+        
+        const expiredTasks = result.data.tasks.filter(task => {
+            const endDate = new Date(task.end_date); // Parse the date
+            return endDate < today;
+        })
+
+        setExpiredTaskData(expiredTasks.length);
+        
+    }
+
+    useEffect(() => {
+        getTaskData()
+    }, [])
+
     return (
         <div className='dashboard-body-container'>
             <div className="dashboard-sidebar">
@@ -134,23 +171,23 @@ const MainSection = () => {
                         <img src={expiredIcon} alt="" />
                     </div>
                     <h5>Expired Tasks</h5>
-                    <h1>5</h1>
+                    <h1>{expiredTaskData}</h1>
                 </div>
 
                 <div className="sidebar-section-block">
                     <div className="section-block-image2">
                         <img src={activeIcon} alt="" />
                     </div>
-                    <h5>Expired Tasks</h5>
-                    <h1>5</h1>
+                    <h5>All Active Tasks</h5>
+                    <h1>{activeTaskData}</h1>
                 </div>
 
                 <div className="sidebar-section-block">
                     <div className="section-block-image3">
                         <img src={completedIcon} alt="" />
                     </div>
-                    <h5>Expired Tasks</h5>
-                    <h1>5</h1>
+                    <h5>Completed Tasks</h5>
+                    <h1>{completedTaskCount}</h1>
                 </div>
 
                 <div className="task-btn-wrapper">
@@ -242,6 +279,41 @@ const MainSection = () => {
                 <div className="category-container">
                     <CompletedCategory />
                 </div>
+            </div>
+
+            <div className="category-slider">
+                <Swiper
+                    slidesPerView={1}
+                    spaceBetween={30}
+                    loop={true}
+                    breakpoints={{
+                        640: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 40,
+                        },
+                    }}
+                    className="mySwiper"
+                >
+                    <SwiperSlide>
+                        <div className="category-container">
+                            <ToDoCategory />
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="category-container">
+                            <OnProgressCategory />
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="category-container">
+                            <CompletedCategory />
+                        </div>
+                    </SwiperSlide>
+                </Swiper>
             </div>
         </div>
     )

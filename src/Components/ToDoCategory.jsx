@@ -53,7 +53,7 @@ const ToDoCategory = () => {
 
     const getTaskData = async () => {
         const result = await axios.get(`${process.env.REACT_APP_SERVER_BASEURL}/get-tasks`);
-        console.log(result);
+        // console.log(result);
 
         setTaskData(result.data.tasks);
 
@@ -76,7 +76,7 @@ const ToDoCategory = () => {
         try {
 
             const result = await axios.delete(`${process.env.REACT_APP_SERVER_BASEURL}/delete-task/${id}`)
-            console.log(result);
+            // console.log(result);
 
             if (result.data.statusCode === 200) {
                 toast.success(result.data.message, options);
@@ -85,7 +85,7 @@ const ToDoCategory = () => {
 
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
 
         }
     }
@@ -146,7 +146,7 @@ const ToDoCategory = () => {
 
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
 
     }
