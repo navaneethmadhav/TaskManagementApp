@@ -160,7 +160,7 @@ const OnProgressCategory = () => {
         <div className='onprogress-parent-container'>
             <div className="onprogress-category-header">
                 <div className="onprogress-header-wrapper">
-                    <div className="category-indicator"></div>
+                    <div className="onprogress-category-indicator"></div>
                     <h5>On Progress</h5>
                     <div className="total-task-number">{newTaskCount}</div>
                 </div>

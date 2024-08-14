@@ -7,7 +7,6 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 
 
@@ -19,6 +18,7 @@ import successIcon from '../Assets/Icons/Tick Square.svg'
 import ToDoCategory from './ToDoCategory.jsx'
 import OnProgressCategory from './OnProgressCategory.jsx'
 import CompletedCategory from './CompletedCategory.jsx'
+import TimeOutCategory from './TimeOutCategory.jsx';
 
 import { FaPlus } from "react-icons/fa6";
 import { HiDotsVertical } from "react-icons/hi";
@@ -269,7 +269,7 @@ const MainSection = () => {
                     </div>
                 )}
             </div>
-            <div className="dashboard-list-section">
+            {/* <div className="dashboard-list-section">
                 <div className="category-container">
                     <ToDoCategory />
                 </div>
@@ -279,13 +279,13 @@ const MainSection = () => {
                 <div className="category-container">
                     <CompletedCategory />
                 </div>
-            </div>
+            </div> */}
 
             <div className="category-slider">
                 <Swiper
                     slidesPerView={1}
                     spaceBetween={30}
-                    loop={true}
+                    loop={false}
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
@@ -295,6 +295,10 @@ const MainSection = () => {
                             slidesPerView: 2,
                             spaceBetween: 40,
                         },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 40,
+                        }
                     }}
                     className="mySwiper"
                 >
@@ -311,6 +315,11 @@ const MainSection = () => {
                     <SwiperSlide>
                         <div className="category-container">
                             <CompletedCategory />
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div className="category-container">
+                            <TimeOutCategory />
                         </div>
                     </SwiperSlide>
                 </Swiper>

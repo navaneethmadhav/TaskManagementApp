@@ -129,7 +129,7 @@ const CompletedCategory = () => {
         <div className='completed-parent-container'>
             <div className="completed-category-header">
                 <div className="completed-header-wrapper">
-                    <div className="category-indicator"></div>
+                    <div className="completed-category-indicator"></div>
                     <h5>Done</h5>
                     <div className="total-task-number">{newTaskCount}</div>
                 </div>
