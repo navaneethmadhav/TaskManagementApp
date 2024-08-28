@@ -46,11 +46,19 @@
     line-height: 55px;
 }
 
+.section-block-image1 img,
+.section-block-image2 img,
+.section-block-image3 img {
+    vertical-align: baseline;
+}
+
 .sidebar-section-block h5 {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 14px;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
     color: rgba(121, 121, 121, 1);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .sidebar-section-block h1 {
@@ -85,11 +93,11 @@
 }
 
 .category-container {
-    height: 735px;
+    height: 675px;
     padding-bottom: 6px;
 }
 
-.modal {
+.new-task-modal {
     display: block;
     position: fixed;
     top: 0;
@@ -97,7 +105,7 @@
     z-index: 999;
 }
 
-.modal,
+.new-task-modal,
 .overlay {
     width: 100vw;
     height: 100vh;
@@ -112,7 +120,7 @@
     background: rgba(49, 49, 49, 0.8);
 }
 
-.modal-content {
+.new-modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -155,40 +163,13 @@
     background: rgba(49, 49, 49, 0.8);
 }
 
-.success-modal {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-}
-
-.success-modal,
-.success-modal-overlay {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
-}
-
-.success-modal-overlay {
-    background: rgba(49, 49, 49, 0.8);
-}
-
 .success-modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    max-width: 80%;
+    /* max-width: 80%; */
     min-width: 315px;
     box-sizing: border-box;
     /* height: 80%; */
@@ -293,6 +274,7 @@
 
 .success-modal-text {
     width: 300px;
+    margin: 0 auto;
 }
 
 .success-modal-text p {
@@ -316,7 +298,8 @@
 
 .category-slider {
     flex-grow: 1;
-    width: 77%;
+    /* width: 77%; */
+    max-width: calc(100% - 270px - 50px);
 }
 
 @media(max-width: 1450px) {
@@ -332,6 +315,10 @@
 
     .sidebar-section-block {
         width: 200px;
+    }
+
+    .category-slider {
+        max-width: calc(100% - 200px - 50px);
     }
 }
 
@@ -357,7 +344,7 @@
     }
 
     .category-slider {
-        width: 100%;
+        max-width: 100%;
     }
 }
 

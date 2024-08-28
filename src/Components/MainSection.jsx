@@ -23,6 +23,7 @@ import TimeOutCategory from './TimeOutCategory.jsx';
 import { FaPlus } from "react-icons/fa6";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
+import { Modal } from 'react-bootstrap';
 
 
 const items = [
@@ -100,6 +101,7 @@ const MainSection = () => {
     // Function to close the modal
     const closeSuccessModal = () => {
         setSuccessModalOpen(false);
+        setModalOpen(false);
     };
 
     const handleAddTask = async () => {
@@ -125,12 +127,14 @@ const MainSection = () => {
         const result = await axios.post(`${process.env.REACT_APP_SERVER_BASEURL}/tasks`, body);
         // console.log(result);
 
-        if (result.data.statusCode === 200) {
-            setModalOpen(false);
-            toast.success(result.data.message, options);
-            // openSuccessModal();
-            window.location.reload();
-        }
+        setSuccessModalOpen(true);
+
+        // if (result.data.statusCode === 200) {
+        //     setModalOpen(false);
+        //     // toast.success(result.data.message, options);
+        //     openSuccessModal()
+        //     // window.location.reload();
+        // }
 
     }
 
@@ -149,14 +153,14 @@ const MainSection = () => {
         setActiveTaskData(activeTasks.length);
 
         const today = new Date();
-        
+
         const expiredTasks = result.data.tasks.filter(task => {
             const endDate = new Date(task.end_date); // Parse the date
             return endDate < today;
         })
 
         setExpiredTaskData(expiredTasks.length);
-        
+
     }
 
     useEffect(() => {
@@ -195,10 +199,10 @@ const MainSection = () => {
                 </div>
 
                 {isModalOpen && (
-                    <div className="modal">
+                    <div className="new-task-modal">
                         {/* <button className='close-button' onClick={closeModal}><IoClose /></button> */}
                         <div onClick={closeModal} className="overlay"></div>
-                        <div className="modal-content">
+                        <div className="new-modal-content">
                             <div className="modal-header-container">
                                 <div className='header-name'>
                                     <div className="task-indicator"></div>
@@ -252,18 +256,15 @@ const MainSection = () => {
 
                                 <button className="action-btn" onClick={handleAddTask}>Assigned to</button>
 
-                                {successModalOpen && (
-                                    <div className="success-modal">
-                                        <div onClick={closeSuccessModal} className="success-modal-overlay"></div>
-                                        <div className="success-modal-content">
-                                            <div className="success-icon-container">
-                                                <img src={successIcon} alt="" />
-                                            </div>
-                                            <div className='success-modal-text'><p>new task has been created successfully</p></div>
-                                            <button onClick={closeSuccessModal}>Back</button>
+                                <Modal show={successModalOpen} onHide={closeSuccessModal}>
+                                    <div className="success-modal-content">
+                                        <div className="success-icon-container">
+                                            <img src={successIcon} alt="" />
                                         </div>
+                                        <div className='success-modal-text'><p>new task has been created successfully</p></div>
+                                        <button onClick={closeSuccessModal}>Back</button>
                                     </div>
-                                )}
+                                </Modal>
                             </div>
                         </div>
                     </div>

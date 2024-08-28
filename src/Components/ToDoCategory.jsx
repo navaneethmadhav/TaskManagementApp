@@ -3,6 +3,7 @@ import { Dropdown } from 'antd';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import DatePicker from 'react-datepicker';
+import Modal from 'react-bootstrap/Modal';
 
 import '../Styles/ToDoCategory.css'
 
@@ -97,6 +98,7 @@ const ToDoCategory = () => {
         setTaskDescription(taskToEdit.task_description)
         setEndDate(taskToEdit.end_date)
         setSelectedTask(taskToEdit)
+        setShowList(false);
         setEditModalOpen(true);
     };
 
@@ -176,29 +178,27 @@ const ToDoCategory = () => {
             {taskData
                 .filter(task => task.task_status === "new")
                 .map((task, i) => (
-                <div className="list-item-container" key={i}>
-                    <div className="list-item-card">
-                        <div className="list-item-banner">
-                            {task.task_priority === "Low" ? (
-                                <div className="list-item-badge">{task.task_priority}</div>
-                            ) : (
-                                <div className="priority-item-badge">{task.task_priority}</div>
-                            )}
+                    <div className="list-item-container" key={i}>
+                        <div className="list-item-card">
+                            <div className="list-item-banner">
+                                {task.task_priority === "Low" ? (
+                                    <div className="list-item-badge">{task.task_priority}</div>
+                                ) : (
+                                    <div className="priority-item-badge">{task.task_priority}</div>
+                                )}
 
-                            <div className="list-item-option" onClick={() => toggleActionList(i)}><HiDotsHorizontal /></div>
+                                <div className="list-item-option" onClick={() => toggleActionList(i)}><HiDotsHorizontal /></div>
 
-                            {showList === i && (
-                                <ul ref={actionListRef} className="task-list-action">
-                                    <li className='task-list-option' style={{ cursor: 'pointer' }} onClick={() => openEditModal(task.task_id)}>Edit</li>
-                                    <li className='task-list-option' style={{ cursor: 'pointer' }} onClick={() => handleDelete(task.task_id)} >Delete</li>
-                                </ul>
-                            )}
-                        </div>
+                                {showList === i && (
+                                    <ul ref={actionListRef} className="task-list-action">
+                                        <li className='task-list-option' style={{ cursor: 'pointer' }} onClick={() => openEditModal(task.task_id)}>Edit</li>
+                                        <li className='task-list-option' style={{ cursor: 'pointer' }} onClick={() => handleDelete(task.task_id)} >Delete</li>
+                                    </ul>
+                                )}
+                            </div>
 
-                        {isEditModalOpen && (
-                            <div className="edit-modal">
-                                <div onClick={closeModal} className="edit-modal-overlay"></div>
-                                <div className="modal-content">
+                            <Modal show={isEditModalOpen} onHide={closeModal}>
+                                <div className="edit-modal-content">
                                     <div className="modal-header-container">
                                         <div className='header-name'>
                                             <div className="task-indicator"></div>
@@ -251,20 +251,20 @@ const ToDoCategory = () => {
                                         )}
                                     </div>
                                 </div>
+                            </Modal>
+
+                            <div className="list-item-header">
+                                <h5>{task.task_heading}</h5>
                             </div>
-                        )}
-                        <div className="list-item-header">
-                            <h5>{task.task_heading}</h5>
-                        </div>
-                        <div className="list-item-content">
-                            <p>{task.task_description}</p>
-                        </div>
-                        <div className="list-item-footer">
-                            <p>Deadline: <span>{task.end_date}</span></p>
+                            <div className="list-item-content">
+                                <p>{task.task_description}</p>
+                            </div>
+                            <div className="list-item-footer">
+                                <p>Deadline: <span>{task.end_date}</span></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
         </div>
     )
 }

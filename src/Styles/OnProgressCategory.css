@@ -125,3 +125,12 @@
     font-size: 12px;
     font-weight: 500;
 }
+
+.edit-modal-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.ant-dropdown {
+    z-index: 1055 !important;
+}

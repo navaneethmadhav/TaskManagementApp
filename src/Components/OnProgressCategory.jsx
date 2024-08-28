@@ -3,9 +3,10 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Dropdown } from 'antd';
 import DatePicker from 'react-datepicker';
+import Modal from 'react-bootstrap/Modal';
 
 import '../Styles/OnProgressCategory.css'
-import { HiDotsHorizontal } from "react-icons/hi"; 
+import { HiDotsHorizontal } from "react-icons/hi";
 import { FaPlus } from "react-icons/fa6";
 import { HiDotsVertical } from "react-icons/hi";
 
@@ -92,6 +93,7 @@ const OnProgressCategory = () => {
         setTaskDescription(taskToEdit.task_description)
         setEndDate(taskToEdit.end_date)
         setSelectedTask(taskToEdit)
+        setShowList(false);
         setEditModalOpen(true);
     };
 
@@ -186,64 +188,61 @@ const OnProgressCategory = () => {
                                 )}
                             </div>
 
-                            {isEditModalOpen && (
-                                <div className="edit-modal">
-                                    <div onClick={closeModal} className="edit-modal-overlay"></div>
-                                    <div className="modal-content">
-                                        <div className="modal-header-container">
-                                            <div className='header-name'>
-                                                <div className="task-indicator"></div>
-                                                <h3>EDIT TASK</h3>
-                                            </div>
-                                            <div className="modal-header-icon">
-                                                <FaPlus />
-                                            </div>
+                            <Modal show={isEditModalOpen} onHide={closeModal}>
+                                <div className="edit-modal-content">
+                                    <div className="modal-header-container">
+                                        <div className='header-name'>
+                                            <div className="task-indicator"></div>
+                                            <h3>EDIT TASK</h3>
                                         </div>
-                                        <div className="modal-task-form">
-                                            <div className="task-input-header">
-                                                <input type="text" placeholder='Heading' value={taskHeading} onChange={(e) => setTaskHeading(e.target.value)} />
-                                                <Dropdown
-                                                    menu={{
-                                                        items,
-                                                        selectable: true,
-                                                        onClick: handleMenuClick
-                                                    }}
-                                                    trigger={['click']}
-                                                >
-                                                    <a>
-                                                        <span><HiDotsVertical /></span>
-                                                    </a>
-                                                </Dropdown>
-                                            </div>
-                                            <div className="task-content-wrapper">
-                                                <textarea name="" id="" placeholder='Description' value={taskDescription} onChange={(e) => setTaskDescription(e.target.value)} ></textarea>
-                                            </div>
-                                        </div>
-                                        <div className="modal-action-footer">
-                                            <button className='action-btn' onClick={handleDeadlineClick}>Deadline</button>
-                                            <button className="action-btn" onClick={() => handleEditTask(selectedTask.task_id)} >Assigned to</button>
-
-                                            {calendarModalOpen && (
-                                                <div className="calendar-modal">
-                                                    <div className="calendar-overlay"></div>
-                                                    <div className="calendar-modal-content">
-                                                        {isCalendarOpen && (
-                                                            <DatePicker
-                                                                selected={endDate}
-                                                                onChange={handleDateChange}
-                                                                dateFormat="dd/MM/yyyy"
-                                                                // onClickOutside={() => setIsCalendarOpen(false)}
-                                                                inline
-                                                            />
-                                                        )}
-
-                                                    </div>
-                                                </div>
-                                            )}
+                                        <div className="modal-header-icon">
+                                            <FaPlus />
                                         </div>
                                     </div>
+                                    <div className="modal-task-form">
+                                        <div className="task-input-header">
+                                            <input type="text" placeholder='Heading' value={taskHeading} onChange={(e) => setTaskHeading(e.target.value)} />
+                                            <Dropdown
+                                                menu={{
+                                                    items,
+                                                    selectable: true,
+                                                    onClick: handleMenuClick
+                                                }}
+                                                trigger={['click']}
+                                            >
+                                                <a>
+                                                    <span><HiDotsVertical /></span>
+                                                </a>
+                                            </Dropdown>
+                                        </div>
+                                        <div className="task-content-wrapper">
+                                            <textarea name="" id="" placeholder='Description' value={taskDescription} onChange={(e) => setTaskDescription(e.target.value)} ></textarea>
+                                        </div>
+                                    </div>
+                                    <div className="modal-action-footer">
+                                        <button className='action-btn' onClick={handleDeadlineClick}>Deadline</button>
+                                        <button className="action-btn" onClick={() => handleEditTask(selectedTask.task_id)} >Assigned to</button>
+    
+                                        {calendarModalOpen && (
+                                            <div className="calendar-modal">
+                                                <div className="calendar-overlay"></div>
+                                                <div className="calendar-modal-content">
+                                                    {isCalendarOpen && (
+                                                        <DatePicker
+                                                            selected={endDate}
+                                                            onChange={handleDateChange}
+                                                            dateFormat="dd/MM/yyyy"
+                                                            // onClickOutside={() => setIsCalendarOpen(false)}
+                                                            inline
+                                                        />
+                                                    )}
+    
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            )}
+                            </Modal>
 
                             <div className="list-item-header">
                                 <h5>{task.task_heading}</h5>
