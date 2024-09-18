@@ -1,13 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../Styles/SearchSection.css'
 import { Select } from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
+import { FaBars } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
+import { FaChartGantt } from "react-icons/fa6";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const SearchSection = () => {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
         <div className='action-container'>
+            {isOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
+            <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+                <button className="sidebar-close-btn" onClick={toggleSidebar}><IoClose /></button>
+                <div className="sidebar-content">
+                    <div className="sidebar-option-wrapper">
+                        <div className="option-icon-cont"><FaChartGantt /></div>
+                        <div className="option-name-cont">
+                            <span>Gantt Chart</span>
+                        </div>
+                    </div>
+
+                    <div className="sidebar-option-wrapper">
+                        <div className="option-icon-cont"><FaRegUserCircle /></div>
+                        <div className="option-name-cont">
+                            <span>User Management</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="search-input-wrapper">
+                <div className='sidebar-cntrl-btn' onClick={toggleSidebar}>
+                    <FaBars />
+                </div>
                 <div class="searchbar">
                     <div class="searchbar-wrapper">
                         <div class="searchbar-left">

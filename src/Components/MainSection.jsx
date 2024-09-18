@@ -287,6 +287,7 @@ const MainSection = () => {
                     slidesPerView={1}
                     spaceBetween={30}
                     loop={false}
+                    
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
